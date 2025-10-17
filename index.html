@@ -2,21 +2,13 @@
 <html>
 <head>
     <title>PTM Feedback Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        /* Basic CSS for readability - you can enhance this */
-        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 0 15px; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        input[type="text"], textarea, select { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
-    </style>
-</head>
+    </head>
 <body>
 
     <h1>PTM Feedback - October 2025</h1>
     <p>Your honest feedback helps us improve future Parent-Teacher Meetings. This survey should take less than 2 minutes.</p>
 
-    <form method="POST" action="https://script.google.com/macros/s/AKfycbzh-x2aF367l29HAD78_uR6K4ZltUrQYU0M_YbPWApVbiC6aZiD-31ZYst00GwElaDOcQ/exec">
+    <form id="feedbackForm">
         
         <label for="child_name">Child's Name & Grade (Optional):</label>
         <input type="text" id="child_name" name="child_name">
@@ -44,8 +36,59 @@
         <label for="improvement_suggestion">3. What is one thing we could do to improve the PTM next time?</label>
         <textarea id="improvement_suggestion" name="improvement_suggestion" rows="4"></textarea>
 
-        <button type="submit">Submit Feedback</button>
+        <button type="submit" id="submitButton">Submit Feedback</button>
     </form>
+    
+    <div id="formStatus" style="margin-top: 20px; font-weight: bold;"></div>
+
+    <script>
+        const form = document.getElementById('feedbackForm');
+        const statusDiv = document.getElementById('formStatus');
+        const submitBtn = document.getElementById('submitButton');
+        
+        // IMPORTANT: Replace this with your copied /exec URL
+        const webAppUrl = 'YOUR_WEB_APP_URL_HERE';
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop the default form submission
+            
+            // Prepare the form data for POST request
+            const formData = new FormData(form);
+            
+            // Show loading state
+            statusDiv.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+
+            // Use Fetch to send the data
+            fetch(webAppUrl, {
+                method: 'POST',
+                // body should be the FormData object directly for form-urlencoded data
+                body: formData, 
+                // We use 'follow' to allow the client to follow the 302 redirect
+                redirect: 'follow' 
+            })
+            .then(response => {
+                // Apps Script returns a text/html response from doPost
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error(`Submission failed with status: ${response.status}`);
+                }
+            })
+            .then(htmlText => {
+                // Display the success message returned by your doPost function (the HTML output)
+                statusDiv.innerHTML = '✅ **Success!** Thank you for your feedback.';
+                form.reset(); // Clear the form
+            })
+            .catch(error => {
+                console.error('Submission Error:', error);
+                statusDiv.innerHTML = `❌ **Error:** Could not submit feedback. Please try again. (${error.message})`;
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+            });
+        });
+    </script>
 
 </body>
 </html>
