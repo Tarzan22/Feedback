@@ -1,107 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PTM Feedback</title>
+    <title>PTM Feedback Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body { font-family: Arial, sans-serif; max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-        h1 { text-align: center; color: #333; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        .rating-input { margin-top: 5px; display: flex; justify-content: space-between; }
-        .rating-input input { width: auto; }
-        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-        button:hover { background-color: #0056b3; }
-        #feedbackMessage { margin-top: 20px; padding: 10px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px; text-align: center; display: none; }
+        /* Basic CSS for readability - you can enhance this */
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 0 15px; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input[type="text"], textarea, select { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #4CAF50; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <h1>Parent-Teacher Meet Feedback</h1>
-    
-    <form id="ptmFeedbackForm" action="https://tarzan22.github.io/Feedback/" method="POST" target="hiddenIframe">
 
-        <div class="form-group">
-            <label for="Parent_Name">Your Name (Parent):</label>
-            <input type="text" id="Parent_Name" name="Parent_Name" required>
-        </div>
+    <h1>PTM Feedback - October 2025</h1>
+    <p>Your honest feedback helps us improve future Parent-Teacher Meetings. This survey should take less than 2 minutes.</p>
 
-        <div class="form-group">
-            <label for="Child_Class">Child's Class:</label>
-            <input type="text" id="Child_Class" name="Child_Class" required>
-        </div>
-
-        <div class="form-group">
-            <label for="Teacher_Name">Teacher Met:</label>
-            <input type="text" id="Teacher_Name" name="Teacher_Name" placeholder="e.g., Ms. Sharma" required>
-        </div>
-
-        <div class="form-group">
-            <label>1. Clarity of Communication (1=Poor, 5=Excellent):</label>
-            <div class="rating-input">
-                <label><input type="radio" name="Clarity_Rating" value="1" required> 1</label>
-                <label><input type="radio" name="Clarity_Rating" value="2"> 2</label>
-                <label><input type="radio" name="Clarity_Rating" value="3"> 3</label>
-                <label><input type="radio" name="Clarity_Rating" value="4"> 4</label>
-                <label><input type="radio" name="Clarity_Rating" value="5"> 5</label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>2. Time Allotted for the Meeting (1=Too short, 5=Just right):</label>
-            <div class="rating-input">
-                <label><input type="radio" name="Time_Rating" value="1" required> 1</label>
-                <label><input type="radio" name="Time_Rating" value="2"> 2</label>
-                <label><input type="radio" name="Time_Rating" value="3"> 3</label>
-                <label><input type="radio" name="Time_Rating" value="4"> 4</label>
-                <label><input type="radio" name="Time_Rating" value="5"> 5</label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="Helpful_Part">What was the most helpful part?</label>
-            <textarea id="Helpful_Part" name="Helpful_Part" rows="3"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="Suggestions">Suggestions for Improvement:</label>
-            <textarea id="Suggestions" name="Suggestions" rows="3"></textarea>
-        </div>
+    <form method="POST" action="YOUR_WEB_APP_URL_HERE">
         
+        <label for="child_name">Child's Name & Grade (Optional):</label>
+        <input type="text" id="child_name" name="child_name">
+        
+        <label>1. The PTM was scheduled at a convenient time (1=Disagree, 5=Agree):</label>
+        <select name="convenient_time" required>
+            <option value="">-- Select a rating --</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+
+        <label>2. The teacher was well-prepared for our meeting (1=Disagree, 5=Agree):</label>
+        <select name="teacher_prepared" required>
+            <option value="">-- Select a rating --</option>
+            <option value="1">1 (Strongly Disagree)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 (Strongly Agree)</option>
+        </select>
+        
+        <label for="improvement_suggestion">3. What is one thing we could do to improve the PTM next time?</label>
+        <textarea id="improvement_suggestion" name="improvement_suggestion" rows="4"></textarea>
+
         <button type="submit">Submit Feedback</button>
-
-        <p id="feedbackMessage">Thank you! Your feedback has been submitted successfully. ✅</p>
     </form>
-    
-    <iframe name="hiddenIframe" id="hiddenIframe" style="display:none;" onload="if(submitted) {showSuccess();}"></iframe>
 
-    <script>
-        let submitted = false;
-        
-        function showSuccess() {
-            const form = document.getElementById('ptmFeedbackForm');
-            const messageElement = document.getElementById('feedbackMessage');
-            
-            // Check if submission was successful (Apps Script returns text)
-            if (document.getElementById('hiddenIframe').contentDocument.body.innerHTML.includes('Data Saved Successfully')) {
-                messageElement.style.display = 'block';
-                form.reset();
-
-                // Hide the message after 5 seconds
-                setTimeout(() => {
-                    messageElement.style.display = 'none';
-                }, 5000);
-            }
-            
-            submitted = false; // Reset the flag
-        }
-
-        // Set the 'submitted' flag before sending the form
-        document.getElementById('ptmFeedbackForm').addEventListener('submit', function() {
-            submitted = true;
-        });
-        
-    </script>
 </body>
-</html>F
+</html>
