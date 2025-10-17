@@ -1,0 +1,456 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTM Feedback Form (Google Sheets Database)</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1:first-of-type {
+            font-size: 1.5em; 
+            border-bottom: none;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.1em;
+        }
+
+        .form-group, .rating-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* Rating Group Styling */
+        .radio-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .radio-buttons input[type="radio"] {
+            display: none;
+        }
+
+        .radio-buttons label {
+            display: block;
+            width: 15%; 
+            text-align: center;
+            padding: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            font-weight: normal;
+        }
+
+        .radio-buttons input[type="radio"]:checked + label {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+        
+        #feedbackMessage {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Royal Convent Public School, Ghoshi Jehanabad 🏫</h1>
+        <h1>Parent-Teacher Meeting Feedback 📝</h1>
+        
+        <form id="ptmFeedbackForm" action="YOUR_APPS_SCRIPT_URL_HERE" method="POST" target="hiddenIframe">
+
+            <div class="form-group">
+                <label for="childName">Child's Name:</label>
+                <input type="text" id="childName" name="Child_Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="childClass">Child's Class:</label>
+                <select id="childClass" name="Child_Class" required>
+                    <option value="" disabled selected>Select Class</option>
+                    <option value="Pre NC">Pre NC</option>
+                    <option value="NC">NC</option>
+                    <option value="LKG">LKG</option>
+                    <option value="UKG">UKG</option>
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="childSection">Child's Section:</label>
+                <select id="childSection" name="Child_Section" required>
+                    <option value="" disabled selected>Select Section</option>
+                    <option value="A">Section A</option>
+                    <option value="B">Section B</option>
+                </select>
+            </div>
+
+            <h2>Rate Your Satisfaction (1 = Poor, 5 = Excellent)</h2>
+
+            <div class="rating-group">
+                <label>1. Clarity of Teacher's Communication:</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="clarity5" name="Clarity_of_Communication_Rating" value="5" required><label for="clarity5">5</label>
+                    <input type="radio" id="clarity4" name="Clarity_of_Communication_Rating" value="4"><label for="clarity4">4</label>
+                    <input type="radio" id="clarity3" name="Clarity_of_Communication_Rating" value="3"><label for="clarity3">3</label>
+                    <input type="radio" id="clarity2" name="Clarity_of_Communication_Rating" value="2"><label for="clarity2">2</label>
+                    <input type="radio" id="clarity1" name="Clarity_of_Communication_Rating" value="1"><label for="clarity1">1</label>
+                </div>
+            </div>
+
+            <div class="rating-group">
+                <label>2. Time Allotted for the Meeting:</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="time5" name="Time_Allotted_Rating" value="5" required><label for="time5">5</label>
+                    <input type="radio" id="time4" name="Time_Allotted_Rating" value="4"><label for="time4">4</label>
+                    <input type="radio" id="time3" name="Time_Allotted_Rating" value="3"><label for="time3">3</label>
+                    <input type="radio" id="time2" name="Time_Allotted_Rating" value="2"><label for="time2">2</label>
+                    <input type="radio" id="time1" name="Time_Allotted_Rating" value="1"><label for="time1">1</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="mostHelpful">What was the **most helpful** part of this PTM?</label>
+                <textarea id="mostHelpful" name="Most_Helpful_Part" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="suggestions">How can the school **improve** future PTMs?</label>
+                <textarea id="suggestions" name="Suggestions_for_Improvement" rows="4"></textarea>
+            </div>
+            
+            <button type="submit">Submit Feedback</button>
+
+            <p id="feedbackMessage" class="hidden">Thank you! Your valuable feedback has been submitted successfully. ✅</p>
+
+        </form>
+    </div>
+    
+    <iframe name="hiddenIframe" id="hiddenIframe" style="display:none;" onload="if(submitted) {showSuccess();}"></iframe>
+
+    <script>
+        let submitted = false;
+        
+        // Function to show the success message and reset the form
+        function showSuccess() {
+            const form = document.getElementById('ptmFeedbackForm');
+            const messageElement = document.getElementById('feedbackMessage');
+            
+            messageElement.classList.remove('hidden');
+            form.reset();
+
+            // Hide the message after a short delay
+            setTimeout(() => {
+                messageElement.classList.add('hidden');
+            }, 5000);
+            
+            // Reset the flag
+            submitted = false;
+        }
+
+        // Add an event listener to the form to set the 'submitted' flag before sending
+        document.getElementById('ptmFeedbackForm').addEventListener('submit', function() {
+            submitted = true;
+        });
+        
+    </script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTM Feedback Form (FormSubmit Ready)</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1:first-of-type {
+            font-size: 1.5em; /* Make the school name slightly smaller than the form title */
+            border-bottom: none;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 25px;
+            font-size: 1.1em;
+        }
+
+        .form-group, .rating-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        /* Rating Group Styling */
+        .radio-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .radio-buttons input[type="radio"] {
+            display: none;
+        }
+
+        .radio-buttons label {
+            display: block;
+            width: 15%; 
+            text-align: center;
+            padding: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            font-weight: normal;
+        }
+
+        .radio-buttons input[type="radio"]:checked + label {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            font-weight: bold;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* The feedback message element is no longer needed since FormSubmit handles the response */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Royal Convent Public School, Ghoshi Jehanabad 🏫</h1>
+        <h1>Parent-Teacher Meeting Feedback 📝</h1>
+        
+        <form action="https://formsubmit.co/ranjan.2269@example.com" method="POST">
+
+            <div class="form-group">
+                <label for="childName">Child's Name:</label>
+                <input type="text" id="childName" name="Child_Name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="childClass">Child's Class:</label>
+                <select id="childClass" name="Child_Class" required>
+                    <option value="" disabled selected>Select Class</option>
+                    <option value="Pre NC">Pre NC</option>
+                    <option value="NC">NC</option>
+                    <option value="LKG">LKG</option>
+                    <option value="UKG">UKG</option>
+                    <option value="Class 1">Class 1</option>
+                    <option value="Class 2">Class 2</option>
+                    <option value="Class 3">Class 3</option>
+                    <option value="Class 4">Class 4</option>
+                    <option value="Class 5">Class 5</option>
+                    <option value="Class 6">Class 6</option>
+                    <option value="Class 7">Class 7</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="childSection">Child's Section:</label>
+                <select id="childSection" name="Child_Section" required>
+                    <option value="" disabled selected>Select Section</option>
+                    <option value="A">Section A</option>
+                    <option value="B">Section B</option>
+                </select>
+            </div>
+
+            <h2>Rate Your Satisfaction (1 = Poor, 5 = Excellent)</h2>
+
+            <div class="rating-group">
+                <label>1. Clarity of Teacher's Communication:</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="clarity5" name="Clarity_of_Communication_Rating" value="5" required><label for="clarity5">5</label>
+                    <input type="radio" id="clarity4" name="Clarity_of_Communication_Rating" value="4"><label for="clarity4">4</label>
+                    <input type="radio" id="clarity3" name="Clarity_of_Communication_Rating" value="3"><label for="clarity3">3</label>
+                    <input type="radio" id="clarity2" name="Clarity_of_Communication_Rating" value="2"><label for="clarity2">2</label>
+                    <input type="radio" id="clarity1" name="Clarity_of_Communication_Rating" value="1"><label for="clarity1">1</label>
+                </div>
+            </div>
+
+            <div class="rating-group">
+                <label>2. Time Allotted for the Meeting:</label>
+                <div class="radio-buttons">
+                    <input type="radio" id="time5" name="Time_Allotted_Rating" value="5" required><label for="time5">5</label>
+                    <input type="radio" id="time4" name="Time_Allotted_Rating" value="4"><label for="time4">4</label>
+                    <input type="radio" id="time3" name="Time_Allotted_Rating" value="3"><label for="time3">3</label>
+                    <input type="radio" id="time2" name="Time_Allotted_Rating" value="2"><label for="time2">2</label>
+                    <input type="radio" id="time1" name="Time_Allotted_Rating" value="1"><label for="time1">1</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="mostHelpful">What was the **most helpful** part of this PTM?</label>
+                <textarea id="mostHelpful" name="Most_Helpful_Part" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="suggestions">How can the school **improve** future PTMs?</label>
+                <textarea id="suggestions" name="Suggestions_for_Improvement" rows="4"></textarea>
+            </div>
+            
+            <input type="hidden" name="_next" value="[Your Form's URL or a Thank You page URL]">
+
+
+            <button type="submit">Submit Feedback</button>
+
+            <p id="feedbackMessage" class="hidden"></p>
+
+        </form>
+    </div>
+    </body>
+>>>>>>> bbedff006a38d19f9c4b12f78094ea9acb97eae6
+</html>
